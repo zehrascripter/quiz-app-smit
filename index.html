@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Quiz App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f0f8ff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question h3 {
+            color: #444;
+            font-size: 1.5em;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1em;
+            font-weight: bold;
+            background-color: #0056b3;
+            color: white;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #004494;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            background-color: #003366;
+            transform: translateY(0);
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 10px #0056b3;
+        }
+
+        button.next-button {
+            background-color: #28a745;
+            margin-top: 20px;
+        }
+
+        button.next-button:hover {
+            background-color: #218838;
+        }
+
+        button.next-button:active {
+            background-color: #1e7e34;
+        }
+
+        .quiz-container {
+            padding: 20px;
+            border: 2px solid #0056b3;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        .quiz-container h3 {
+            color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                max-width: 100%;
+                box-shadow: none;
+                border: none;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .question h3 {
+                font-size: 1.3em;
+            }
+
+            button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+
+            .next-button {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .question h3 {
+                font-size: 1.2em;
+            }
+
+            button {
+                font-size: 0.8em;
+                padding: 6px;
+            }
+
+            .next-button {
+                margin-top: 10px;
+            }
+
+            .quiz-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Quiz</h2>
+
+    <div id="quiz-container" class="quiz-container"></div>
+    <button class="next-button" onclick="showNextQuestion()">Next Question</button>
+
+    <script>
+        const quizQuestions = [
+            {
+                question: "What is used to declare a variable in JavaScript?",
+                options: ["var", "int", "float"],
+                correct: "var"
+            },
+            {
+                question: "Which method is used to find the length of a string?",
+                options: [".length", ".size", ".index"],
+                correct: ".length"
+            },
+            {
+                question: "How do you write 'Hello World' in an alert box?",
+                options: ["alert('Hello World')", "msg('Hello World')", "console.log('Hello World')"],
+                correct: "alert('Hello World')"
+            },
+            {
+                question: "Which keyword is used to define a constant in JavaScript?",
+                options: ["const", "let", "var"],
+                correct: "const"
+            },
+            {
+                question: "Which of the following is a JavaScript data type?",
+                options: ["Boolean", "Integer", "Character"],
+                correct: "Boolean"
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+
+            const questionData = quizQuestions[currentQuestion];
+            const questionElement = document.createElement('div');
+            questionElement.classList.add('question');
+
+            const questionTitle = document.createElement('h3');
+            questionTitle.textContent = questionData.question;
+            questionElement.appendChild(questionTitle);
+
+            questionData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option, questionData.correct);
+                questionElement.appendChild(button);
+            });
+
+            quizContainer.appendChild(questionElement);
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                alert('Correct answer!');
+            } else {
+                alert('Wrong answer!');
+            }
+        }
+
+        function showNextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                alert('Quiz completed!');
+                currentQuestion = 0; // Reset quiz
+                loadQuestion();
+            }
+        }
+
+        // Load the first question when the page loads
+        loadQuestion();
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
